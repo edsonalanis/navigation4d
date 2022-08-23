@@ -14,6 +14,8 @@ type
   TNavigator4D = class
   private
     class var FInstance: TNavigator4D;
+  protected
+    class destructor Destroy;
   public
     function InitRender(ARender: TFmxObject): TNavigator4D;
     class function New: TNavigator4D;
@@ -39,6 +41,11 @@ end;
 class function TNavigator4D.&To: INavigator4DTo;
 begin
   Result := TNavigator4DTo.New;
+end;
+
+class destructor TNavigator4D.Destroy;
+begin
+  FreeAndNil(FInstance);
 end;
 
 function TNavigator4D.InitRender(ARender: TFmxObject): TNavigator4D;

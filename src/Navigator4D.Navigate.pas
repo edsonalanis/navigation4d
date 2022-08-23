@@ -69,21 +69,12 @@ begin
 end;
 
 procedure TNavigator4DTo.Navigate(APath: String; AParams: INavigator4DParams = nil);
-var
-  history: THistoryNavigator;
 begin
   FInitRender.RemoveObject(0);
 
   while (FHistory.Count > 0) do
     _Pop;
-//  begin
-//    history := FHistory.Pop;
-//    history.PersistentInstance.Free;
-//  end;
 
-//  history.Path := APath;
-//  history.PersistentInstance := TNavigator4D.Router.CreateInstancePersistent(APath);
-//  FHistory.Push(history);
   _PushNamed(APath);
 
   _Render(FHistory.Peek, AParams);
@@ -98,17 +89,11 @@ begin
 end;
 
 procedure TNavigator4DTo.Pop;
-//var
-//  history: THistoryNavigator;
 begin
   FInitRender.RemoveObject(0);
 
   if (FHistory.Count > 1) then
     _Pop;
-//  begin
-//    history := FHistory.Pop;
-//    history.PersistentInstance.Free;
-//  end;
 
   _Render(FHistory.Peek);
 end;
@@ -136,11 +121,6 @@ begin
   history := FHistory.Peek;
   while (FHistory.Count > 1) and (not history.Path.Equals(APath)) do
     _Pop;
-//  begin
-//    FHistory.Pop;
-//    if (FHistory.Count > 1) then
-//      history := FHistory.Peek;
-//  end;
 
   if (FHistory.Count > 0) then
     _Render(FHistory.Peek);
@@ -166,14 +146,9 @@ begin
 end;
 
 procedure TNavigator4DTo.PushNamed(APath: String; AParams: INavigator4DParams = nil);
-//var
-//  history: THistoryNavigator;
 begin
   FInitRender.RemoveObject(0);
 
-//  history.Path := APath;
-//  history.PersistentInstance := TNavigator4D.Router.CreateInstancePersistent(APath);
-//  FHistory.Push(history);
   _PushNamed(APath);
 
   _Render(FHistory.Peek, AParams);
@@ -226,16 +201,13 @@ procedure TNavigator4DTo._Pop;
 var
   history: THistoryNavigator;
 begin
-//  if (FHistory.Count > 1) then
-//  begin
-    history := FHistory.Pop;
-    history.PersistentInstance.Free;
-    if Assigned(history.TemplateInstance) then
-    begin
-      FHistoryTemplates.Pop;
-      history.TemplateInstance.Free;
-    end;
-//  end;
+  history := FHistory.Pop;
+  history.PersistentInstance.Free;
+  if Assigned(history.TemplateInstance) then
+  begin
+    FHistoryTemplates.Pop;
+    history.TemplateInstance.Free;
+  end;
 end;
 
 procedure TNavigator4DTo._PushNamed(APath: String);
