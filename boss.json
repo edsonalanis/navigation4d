@@ -1,0 +1,9 @@
+{
+	"name": "navigation4d",
+	"description": "Navigation for Delphi",
+	"version": "1.0.0",
+	"homepage": "https://github.com/edsonalanis/navigation4d",
+	"mainsrc": "./src",
+	"projects": [],
+	"dependencies": {}
+}
