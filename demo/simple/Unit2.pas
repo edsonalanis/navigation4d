@@ -23,6 +23,7 @@ type
     procedure Button2Click(Sender: TObject);
   public
     function Render: TFmxObject;
+    procedure UnRender;
   end;
 
 var
@@ -72,6 +73,11 @@ begin
         .AddParam( TNavigator4DParam.Create('aa', 'Valor 1') )
         .AddParam( TNavigator4DParam.Create('bb', 1) )
     );
+end;
+
+procedure TForm2.UnRender;
+begin
+
 end;
 
 end.

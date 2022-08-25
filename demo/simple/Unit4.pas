@@ -22,6 +22,7 @@ type
     procedure Button3Click(Sender: TObject);
   public
     function Render: TFmxObject;
+    procedure UnRender;
     procedure ProcessParams(AParams: INavigator4DParams);
   end;
 
@@ -66,6 +67,11 @@ end;
 function TForm4.Render: TFmxObject;
 begin
   Result := Layout1;
+end;
+
+procedure TForm4.UnRender;
+begin
+
 end;
 
 end.

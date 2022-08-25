@@ -33,6 +33,7 @@ type
   INavigator4DComponent = interface
   ['{4341F8E4-B48B-42CE-9B07-78BB6E1D9E97}']
     function Render: TFmxObject;
+    procedure UnRender;
   end;
 
   INavigator4DTemplate = interface
