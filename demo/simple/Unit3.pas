@@ -15,6 +15,7 @@ type
     procedure Button1Click(Sender: TObject);
   public
     function Render: TFmxObject;
+    procedure UnRender;
   end;
 
 var
@@ -36,6 +37,11 @@ end;
 function TForm3.Render: TFmxObject;
 begin
   Result := Layout1
+end;
+
+procedure TForm3.UnRender;
+begin
+
 end;
 
 end.
