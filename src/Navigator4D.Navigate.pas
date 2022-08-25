@@ -42,6 +42,7 @@ type
     procedure PopAndPushNamed(APath: String; AParams: INavigator4DParams = nil);
     procedure PopUntilAndPushNamed(APath, AToPath: String; AParams: INavigator4DParams = nil);
     procedure InitRender(AObject: TFmxObject);
+    function HistoryCount: Integer;
   end;
 
 implementation
@@ -62,6 +63,11 @@ begin
   FreeAndNil(FHistoryTemplates);
   FreeAndNil(FHistory);
   inherited;
+end;
+
+function TNavigator4DTo.HistoryCount: Integer;
+begin
+  Result := FHistory.Count;
 end;
 
 procedure TNavigator4DTo.InitRender(AObject: TFmxObject);

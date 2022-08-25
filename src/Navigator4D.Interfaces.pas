@@ -67,6 +67,7 @@ type
     procedure PopAndPushNamed(APath: String; AParams: INavigator4DParams = nil);
     procedure PopUntilAndPushNamed(APath, AToPath: String; AParams: INavigator4DParams = nil);
     procedure InitRender(AObject: TFmxObject);
+    function HistoryCount: Integer;
   end;
 
 implementation
