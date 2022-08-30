@@ -24,6 +24,7 @@ type
   public
     function Render: TFmxObject;
     procedure UnRender;
+    procedure SetTemplate(ATemplate: INavigator4DTemplate);
   end;
 
 var
@@ -61,6 +62,11 @@ end;
 function TForm2.Render: TFmxObject;
 begin
   Result := Layout1;
+end;
+
+procedure TForm2.SetTemplate(ATemplate: INavigator4DTemplate);
+begin
+
 end;
 
 procedure TForm2.Unit4Click(Sender: TObject);
