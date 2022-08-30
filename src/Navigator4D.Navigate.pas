@@ -37,8 +37,8 @@ type
 
     procedure Navigate(APath: String; AParams: INavigator4DParams = nil);
     procedure PushNamed(APath: String; AParams: INavigator4DParams = nil);
-    procedure Pop;
-    procedure PopUntil(APath: String);
+    procedure Pop(AParams: INavigator4DParams = nil);
+    procedure PopUntil(APath: String; AParams: INavigator4DParams = nil);
     procedure PopAndPushNamed(APath: String; AParams: INavigator4DParams = nil);
     procedure PopUntilAndPushNamed(APath, AToPath: String; AParams: INavigator4DParams = nil);
     procedure InitRender(AObject: TFmxObject);
@@ -95,14 +95,14 @@ begin
   Result := FInstance;
 end;
 
-procedure TNavigator4DTo.Pop;
+procedure TNavigator4DTo.Pop(AParams: INavigator4DParams = nil);
 begin
   FInitRender.RemoveObject(0);
 
   if (FHistory.Count > 1) then
     _Pop;
 
-  _Render(FHistory.Peek);
+  _Render(FHistory.Peek, AParams);
 end;
 
 procedure TNavigator4DTo.PopAndPushNamed(APath: String; AParams: INavigator4DParams);
@@ -116,7 +116,7 @@ begin
   _Render(FHistory.Peek);
 end;
 
-procedure TNavigator4DTo.PopUntil(APath: String);
+procedure TNavigator4DTo.PopUntil(APath: String; AParams: INavigator4DParams = nil);
 var
   history: THistoryNavigator;
 begin
@@ -133,7 +133,7 @@ begin
   end;
 
   if (FHistory.Count > 0) then
-    _Render(FHistory.Peek);
+    _Render(FHistory.Peek, AParams);
 end;
 
 procedure TNavigator4DTo.PopUntilAndPushNamed(APath, AToPath: String;

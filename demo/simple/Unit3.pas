@@ -16,6 +16,7 @@ type
   public
     function Render: TFmxObject;
     procedure UnRender;
+    procedure SetTemplate(ATemplate: INavigator4DTemplate);
   end;
 
 var
@@ -37,6 +38,11 @@ end;
 function TForm3.Render: TFmxObject;
 begin
   Result := Layout1
+end;
+
+procedure TForm3.SetTemplate(ATemplate: INavigator4DTemplate);
+begin
+
 end;
 
 procedure TForm3.UnRender;
