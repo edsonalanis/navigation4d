@@ -191,6 +191,7 @@ begin
   if Assigned(template) then
   begin
     template.EmbedIn.AddObject(component.Render);
+    component.SetTemplate(template);
     FInitRender.AddObject(template.Render);
   end
   else
@@ -203,6 +204,7 @@ begin
     begin
       template.EmbedIn.RemoveObject(0);
       template.EmbedIn.AddObject(component.Render);
+      component.SetTemplate(template);
       FInitRender.AddObject(template.Render);
     end
     else
