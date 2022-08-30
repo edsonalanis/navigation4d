@@ -16,10 +16,13 @@ type
   private
     FKey: String;
     FValue: Variant;
+    FIValue: IInterface;
   public
-    constructor Create(AKey: String; AValue: Variant); reintroduce;
+    constructor Create(AKey: String; AValue: Variant); reintroduce; overload;
+    constructor Create(AKey: String; AValue: IInterface); reintroduce; overload;
     function Key: string;
     function Value: Variant;
+    function IValue: IInterface;
   end;
 
   TParamCache = record
@@ -88,6 +91,17 @@ constructor TNavigator4DParam.Create(AKey: String; AValue: Variant);
 begin
   FKey := AKey;
   FValue := AValue;
+end;
+
+constructor TNavigator4DParam.Create(AKey: String; AValue: IInterface);
+begin
+  FKey := AKey;
+  FIValue := AValue;
+end;
+
+function TNavigator4DParam.IValue: IInterface;
+begin
+  Result := FIValue;
 end;
 
 function TNavigator4DParam.Key: string;
