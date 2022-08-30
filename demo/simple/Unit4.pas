@@ -23,6 +23,7 @@ type
   public
     function Render: TFmxObject;
     procedure UnRender;
+    procedure SetTemplate(ATemplate: INavigator4DTemplate);
     procedure ProcessParams(AParams: INavigator4DParams);
   end;
 
@@ -67,6 +68,11 @@ end;
 function TForm4.Render: TFmxObject;
 begin
   Result := Layout1;
+end;
+
+procedure TForm4.SetTemplate(ATemplate: INavigator4DTemplate);
+begin
+
 end;
 
 procedure TForm4.UnRender;
