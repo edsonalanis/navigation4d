@@ -15,6 +15,7 @@ type
     function Key: String;
     function Value: Variant;
     function IValue: IInterface;
+    function OValue: TObject;
   end;
 
 
