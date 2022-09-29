@@ -38,25 +38,30 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-
     function AddParam(AParam: INavigator4DParam): INavigator4DParams;
     function Count: Integer;
     function GetParam(AIndex: Integer): INavigator4DParam; overload;
     function GetParam(AKey: String): INavigator4DParam; overload;
+    function ContainsKey(AKey: String): Boolean;
   end;
 
 implementation
 
 //
 { TNavigator4DParams }
-
-function TNavigator4DParams.AddParam(AParam: INavigator4DParam): INavigator4DParams;
+function TNavigator4DParams.AddParam(AParam: INavigator4DParam)
+  : INavigator4DParams;
 var
   cache: TParamCache;
 begin
   Result := Self;
   cache.Param := AParam;
   FList.Add(AParam.Key, cache);
+end;
+
+function TNavigator4DParams.ContainsKey(AKey: String): Boolean;
+begin
+  Result := FList.ContainsKey(AKey);
 end;
 
 function TNavigator4DParams.Count: Integer;
@@ -89,7 +94,6 @@ begin
 end;
 
 { TNavigator4DParam<T> }
-
 constructor TNavigator4DParam.Create(AKey: String; AValue: Variant);
 begin
   FKey := AKey;
