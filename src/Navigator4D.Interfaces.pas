@@ -25,6 +25,7 @@ type
     function Count: Integer;
     function GetParam(AIndex: Integer): INavigator4DParam; overload;
     function GetParam(AKey: String): INavigator4DParam; overload;
+    function ContainsKey(AKey: String): Boolean;
   end;
 
   INavigator4DComponetParams = interface
