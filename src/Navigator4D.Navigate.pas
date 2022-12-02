@@ -77,14 +77,25 @@ end;
 
 procedure TNavigator4DTo.Navigate(APath: String; AParams: INavigator4DParams = nil);
 begin
-  FInitRender.RemoveObject(0);
+  var thr := TThread.CreateAnonymousThread(
+    procedure
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          FInitRender.RemoveObject(0);
 
-  while (FHistory.Count > 0) do
-    _Pop;
+          while (FHistory.Count > 0) do
+            _Pop;
 
-  _PushNamed(APath);
+          _PushNamed(APath);
 
-  _Render(FHistory.Peek, AParams);
+          _Render(FHistory.Peek, AParams);
+        end
+      );
+    end);
+  thr.FreeOnTerminate := True;
+  thr.Start;
 end;
 
 class function TNavigator4DTo.New: INavigator4DTo;
@@ -97,74 +108,129 @@ end;
 
 procedure TNavigator4DTo.Pop(AParams: INavigator4DParams = nil);
 begin
-  FInitRender.RemoveObject(0);
+  var thr := TThread.CreateAnonymousThread(
+    procedure
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          FInitRender.RemoveObject(0);
 
-  if (FHistory.Count > 1) then
-    _Pop;
+          if (FHistory.Count > 1) then
+            _Pop;
 
-  _Render(FHistory.Peek, AParams);
+          _Render(FHistory.Peek, AParams);
+        end
+      );
+    end);
+  thr.FreeOnTerminate := True;
+  thr.Start;
 end;
 
 procedure TNavigator4DTo.PopAndPushNamed(APath: String; AParams: INavigator4DParams);
 begin
-  FInitRender.RemoveObject(0);
+  var thr := TThread.CreateAnonymousThread(
+    procedure
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          FInitRender.RemoveObject(0);
 
-  if (FHistory.Count > 1) then
-    _Pop;
-  _PushNamed(APath);
+          if (FHistory.Count > 1) then
+            _Pop;
+          _PushNamed(APath);
 
-  _Render(FHistory.Peek);
+          _Render(FHistory.Peek, AParams);
+        end
+      );
+    end);
+  thr.FreeOnTerminate := True;
+  thr.Start;
 end;
 
 procedure TNavigator4DTo.PopUntil(APath: String; AParams: INavigator4DParams = nil);
-var
-  history: THistoryNavigator;
 begin
   if (FHistory.Count = 1) then
     Exit;
 
-  FInitRender.RemoveObject(0);
+  var thr := TThread.CreateAnonymousThread(
+    procedure
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        var
+          history: THistoryNavigator;
+        begin
+          FInitRender.RemoveObject(0);
 
-  history := FHistory.Peek;
-  while (FHistory.Count > 1) and (not history.Path.Equals(APath)) do
-  begin
-    _Pop;
-    history := FHistory.Peek;
-  end;
+          history := FHistory.Peek;
+          while (FHistory.Count > 1) and (not history.Path.Equals(APath)) do
+          begin
+            _Pop;
+            history := FHistory.Peek;
+          end;
 
-  if (FHistory.Count > 0) then
-    _Render(FHistory.Peek, AParams);
+          if (FHistory.Count > 0) then
+            _Render(FHistory.Peek, AParams);
+        end
+      );
+    end);
+  thr.FreeOnTerminate := True;
+  thr.Start;
 end;
 
 procedure TNavigator4DTo.PopUntilAndPushNamed(APath, AToPath: String;
   AParams: INavigator4DParams);
-var
-  history: THistoryNavigator;
 begin
   if (FHistory.Count = 1) then
     Exit;
 
-  FInitRender.RemoveObject(0);
+  var thr := TThread.CreateAnonymousThread(
+    procedure
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        var
+          history: THistoryNavigator;
+        begin
+          FInitRender.RemoveObject(0);
 
-  history := FHistory.Peek;
-  while (FHistory.Count > 1) and (not history.Path.Equals(APath)) do
-  begin
-    _Pop;
-    history := FHistory.Peek;
-  end;
-  _PushNamed(AToPath);
+          history := FHistory.Peek;
+          while (FHistory.Count > 1) and (not history.Path.Equals(APath)) do
+          begin
+            _Pop;
+            history := FHistory.Peek;
+          end;
+          _PushNamed(AToPath);
 
-  if (FHistory.Count > 0) then
-    _Render(FHistory.Peek);
+          if (FHistory.Count > 0) then
+            _Render(FHistory.Peek);
+        end
+      );
+    end);
+  thr.FreeOnTerminate := True;
+  thr.Start;
 end;
 
 procedure TNavigator4DTo.PushNamed(APath: String; AParams: INavigator4DParams = nil);
 begin
-  FInitRender.RemoveObject(0);
+  var thr := TThread.CreateAnonymousThread(
+    procedure
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          FInitRender.RemoveObject(0);
 
-  _PushNamed(APath);
+          _PushNamed(APath);
 
-  _Render(FHistory.Peek, AParams);
+          _Render(FHistory.Peek, AParams);
+        end
+      );
+    end);
+  thr.FreeOnTerminate := True;
+  thr.Start;
 end;
 
 procedure TNavigator4DTo._Render(AHistory: THistoryNavigator; AParams: INavigator4DParams = nil);
